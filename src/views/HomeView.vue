@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { projectsData } from '../data/portfolio'
+
+import { projectsData } from '@/data/porfolio';
 import { ExternalLink } from 'lucide-vue-next'
 </script>
 
