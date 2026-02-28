@@ -1,13 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '@/pages/home/Home.vue' // Mantengo tu import actual
+import HomeView from '@/views/HomeView.vue' 
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: HomeView
     },
     {
       path: '/proyecto/:id',
@@ -18,8 +18,8 @@ const router = createRouter({
       path: '/sobre-mi',
       name: 'about',
       component: () => import('@/views/AboutView.vue'),
-      // AQUÍ ESTÁN LAS RUTAS ANIDADAS (Children)
       children: [
+        { path: '', redirect: '/sobre-mi/estudios' }, 
         {
           path: 'estudios',
           name: 'about-education',
@@ -34,13 +34,8 @@ const router = createRouter({
     },
     {
       path: '/contacto',
-      name: 'contact',         
+      name: 'contact',
       component: () => import('@/views/ContactView.vue')
-    },
-    // Ruta comodín por si escriben algo mal
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: '/'
     }
   ]
 })

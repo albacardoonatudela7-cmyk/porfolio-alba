@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { educationData } from '@/data/porfolio';
+import { educationData } from '@/data/portfolio';
 </script>
 
 <template>

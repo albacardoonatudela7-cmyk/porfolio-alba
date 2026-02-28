@@ -5,7 +5,7 @@ export interface Project {
   title: string;
   category: string;
   description: string;
-  image: string;
+  images: string;
   tags: string[];
   client?: string; // Campo opcional para los nombres de las influencers
 }
@@ -21,7 +21,7 @@ export const projectsData: Project[] = [
     title: "CREFAD 2026",
     category: "Diseño e Identidad",
     description: "Diseño de la identidad visual y el logotipo oficial del congreso CREFAD 2026. Proyecto ganador del concurso oficial, actualmente en marcha como imagen representativa.",
-    image: "/img/proyecto1.jpg",
+    images: "/img/proyecto1.jpg",
     tags: ["Illustrator", "After Effects"]
   },
   {
@@ -29,7 +29,7 @@ export const projectsData: Project[] = [
     title: "Cartel Teatral: Pecados Capitales",
     category: "Diseño Gráfico",
     description: "Diseño disruptivo y conceptual para una obra de teatro. Utilicé técnicas de escaneado para lograr una estética potente y original.",
-    image: "/img/proyecto2.jpg",
+    images: "/img/proyecto2.jpg",
     tags: ["Técnica Escaneado", "Photoshop", "InDesign"]
   },
   {
@@ -37,7 +37,7 @@ export const projectsData: Project[] = [
     title: "Lo que nos mueve",
     category: "Branding e Identidad",
     description: "Identidad visual completa para programa de intercambio cultural: logo, carteles, mupis y campaña en redes sociales incluyendo video-anuncio.",
-    image: "/img/proyecto3.jpg",
+    images: "/img/proyecto3.jpg",
     tags: ["Illustrator", "InDesign", "After Effects", "Premiere"]
   },
   {
@@ -45,7 +45,7 @@ export const projectsData: Project[] = [
     title: "KAOKA Chocolate",
     category: "Branding y Packaging",
     description: "Desarrollo de packaging para tableta de chocolate puro y estrategia visual para redes sociales.",
-    image: "/img/proyecto4.jpg",
+    images: "/img/proyecto4.jpg",
     tags: ["Illustrator", "After Effects", "Procreate"]
   },
   {
@@ -53,7 +53,7 @@ export const projectsData: Project[] = [
     title: "Edición Creativa para Creadores",
     category: "Edición de Video",
     description: "Edición de contenido dinámico para TikTok y YouTube, optimizando la retención y la experiencia visual según el estilo de cada creador.",
-    image: "/img/proyecto5.jpg",
+    images: "/img/proyecto5.jpg",
     tags: ["CapCut", "Premiere", "After Effects"],
     client: "Mery Rodríguez, Carmen Baldres, Lucía de Luis, Laura Rouder, Claudia García"
   },
@@ -62,7 +62,7 @@ export const projectsData: Project[] = [
     title: "Intros Personalizadas YouTube",
     category: "Motion Graphics",
     description: "Creación de intros animadas con estilo propio para reconocidas influencers.",
-    image: "/img/proyecto6.jpg",
+    images: "/img/proyecto6.jpg",
     tags: ["Procreate", "After Effects", "CapCut"],
     client: "Elena Gortari, Laura Rouder, Carmen Baldres, Marru, Sara Cisneros, Aitana Candelas"
   }

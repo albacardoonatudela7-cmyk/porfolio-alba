@@ -1,7 +1,8 @@
 <script setup lang="ts">
-
-import { projectsData } from '@/data/porfolio';
+import { projectsData } from '@/data/portfolio'
 import { ExternalLink } from 'lucide-vue-next'
+// Importamos el botón de Shadcn que ya tienes
+import Button from '@/components/ui/button/Button.vue'
 </script>
 
 <template>
@@ -29,11 +30,10 @@ import { ExternalLink } from 'lucide-vue-next'
           <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{{ project.category }}</span>
           <h3 class="text-xl font-bold mt-1">{{ project.title }}</h3>
           
-          <router-link 
-            :to="'/proyecto/' + project.id"
-            class="mt-6 inline-flex items-center gap-2 text-xs font-black border-b-2 border-black pb-1 hover:text-blue-600 hover:border-blue-600 transition-all"
-          >
-            VER DETALLE <ExternalLink :size="14" />
+          <router-link :to="'/proyecto/' + project.id" class="block mt-6">
+            <Button variant="outline" class="w-full flex items-center justify-center gap-2">
+              VER DETALLE <ExternalLink :size="14" />
+            </Button>
           </router-link>
         </div>
       </div>

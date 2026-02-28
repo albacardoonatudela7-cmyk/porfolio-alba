@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { educationData } from '@/data/porfolio';
+import { educationData } from '@/data/portfolio';
 </script>
 <template>
   <div class="mt-8 p-6 bg-blue-50 rounded-2xl">
