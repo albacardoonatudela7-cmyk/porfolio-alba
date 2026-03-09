@@ -15,7 +15,7 @@ const router = createRouter({
   component: () => import('../views/ProjectGeneral.vue'),
   children: [
     {
-      // Esta es la ruta anidada: /trabajos/galeria
+
       path: 'galeria', 
       name: 'trabajos',
       component: () => import('../views/ProjectGeneral.vue')

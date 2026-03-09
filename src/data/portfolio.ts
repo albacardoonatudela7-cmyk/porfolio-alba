@@ -13,7 +13,7 @@ export interface Project {
   tags: string[];
   client?: string;
   influencers?: Influencer[];
-  shortVideos?: string[]; // Nueva propiedad para los clips sin YouTube
+  shortVideos?: string[]; 
 }
 
 export interface Service {
