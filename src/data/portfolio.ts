@@ -1,5 +1,3 @@
-
-
 export interface Influencer {
   name: string;
   cover: string;
@@ -11,10 +9,11 @@ export interface Project {
   title: string;
   category: string;
   description: string;
-  images: string[]; 
+  images: string[];
   tags: string[];
   client?: string;
   influencers?: Influencer[];
+  shortVideos?: string[]; // Nueva propiedad para los clips sin YouTube
 }
 
 export interface Service {
@@ -28,10 +27,7 @@ export const projectsData: Project[] = [
     title: "CREFAD 2026",
     category: "Diseño e Identidad",
     description: "Diseño de la identidad visual y el logotipo oficial del congreso CREFAD 2026. Proyecto ganador del concurso oficial, actualmente en marcha como imagen representativa.",
-    images: [
-      "/img/crefad.cartel.jpg", 
-      "/img/crefad.logo.jpg"
-    ], 
+    images: ["/img/crefad.cartel.jpg", "/img/crefad.logo.jpg"], 
     tags: ["Illustrator", "After Effects"]
   },
   {
@@ -39,43 +35,31 @@ export const projectsData: Project[] = [
     title: "Cartel Teatral: Pecados Capitales",
     category: "Diseño Gráfico",
     description: "Diseño disruptivo y conceptual para una obra de teatro. Utilicé técnicas de escaneado para lograr una estética potente y original.",
-    images: [
-      "/img/avaricia.1.jpg",
-      "/img/avaricia.2.jpg"
-    ],
+    images: ["/img/avaricia.1.jpg", "/img/avaricia.2.jpg"],
     tags: ["Técnica Escaneado", "Photoshop", "InDesign"]
   },
   {
     id: 3,
     title: "Lo que nos mueve",
     category: "Branding e Identidad",
-    description: "Identidad visual completa para programa de intercambio cultural: logo, carteles, mupis y campaña en redes sociales incluyendo video-anuncio.",
-    images: [
-      "/img/LQNM-CartelN.JPG",
-      "/img/LQNM-CartelR.jpg"
-    ],
-    tags: ["Illustrator", "InDesign", "After Effects", "Premiere"]
+    description: "Identidad visual completa para programa de intercambio cultural: logo, carteles, mupis y campaña en redes sociales incluyendo video anuncio.",
+    images: ["/img/LQNM-CartelN.JPG", "/img/LQNM-CartelR.jpg"],
+    tags: ["Illustrator", "InDesign", "After Effects", "Premiere"],
+    shortVideos: [
+  "/videos/lqnm1.mp4",
+  "/videos/lqnm2.mp4"
+    ]
   },
   {
     id: 4,
     title: "KAOKA Chocolate",
     category: "Branding y Packaging",
     description: "Desarrollo de packaging para tableta de chocolate puro y estrategia visual para redes sociales.",
-    images: [
-      "/img/K4.png",
-      "/img/K5.jpg",
-      "/img/K6.png"
-    ],
-    tags: ["Illustrator", "After Effects", "Procreate"]
-  },
-  {
-    id: 5,
-    title: "Edición Creativa para Creadores",
-    category: "Edición de Video",
-    description: "Edición de contenido dinámico para TikTok y YouTube, optimizando la retención y la experiencia visual según el estilo de cada creador.",
-    images: ["/img/proyecto5.jpg"],
-    tags: ["CapCut", "Premiere", "After Effects"],
-    client: "Mery Rodríguez, Carmen Baldres, Lucía de Luis, Laura Rouder, Claudia García"
+    images: ["/img/K4.png", "/img/K5.jpg", "/img/K6.png"],
+    tags: ["Illustrator", "After Effects", "Procreate"],
+    shortVideos: [
+   "/videos/kaoka.mp4"
+    ]
   },
   {
     id: 6,
@@ -85,15 +69,15 @@ export const projectsData: Project[] = [
     images: ["/img/portada-intros.jpg"],
     tags: ["Procreate", "After Effects", "CapCut"],
     influencers: [
-      { name: "Elena Gortari", cover: "/img/elena.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Laura Rouder", cover: "/img/laura.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Carmen Baldres", cover: "/img/carmen.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Marru", cover: "/img/marru.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Lucía de Luis", cover: "/img/lucia.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Sara Cisneros", cover: "/img/sara.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Aitana Candela", cover: "/img/aitana.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Mery Rodríguez", cover: "/img/mery.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" },
-      { name: "Carla Baquedano", cover: "/img/carla.jpg", videoUrl: "https://www.youtube.com/embed/ID_VIDEO" }
+      { name: "Elena Gortari", cover: "/img/elena.jpg", videoUrl: "https://www.youtube.com/embed/MEo0KhEWOzI" },
+      { name: "Laura Rouder", cover: "/img/laura.jpg", videoUrl: "https://www.youtube.com/embed/ARQZw5FOC_Q" },
+      { name: "Carmen Baldres", cover: "/img/carmen.jpg", videoUrl: "https://www.youtube.com/embed/bi1X4nNDbDI" },
+      { name: "Marru", cover: "/img/marru.jpg", videoUrl: "https://www.youtube.com/embed/1g48Jv9LeOY" },
+      { name: "Lucía de Luis", cover: "/img/lucia.jpg", videoUrl: "https://www.youtube.com/embed/U494hyLqNJA" },
+      { name: "Sara Cisneros", cover: "/img/sara.jpg", videoUrl: "https://www.youtube.com/embed/11vJ6tBmplU" },
+      { name: "Aitana Candela", cover: "/img/aitana.jpg", videoUrl: "https://www.youtube.com/embed/R-Qy6D-hUmw" },
+      { name: "Mery Rodríguez", cover: "/img/mery.jpg", videoUrl: "https://www.youtube.com/embed/1DQ5tWq-o2M" },
+      { name: "Carla Baquedano", cover: "/img/carla.jpg", videoUrl: "https://www.youtube.com/embed/RUaVZd4MLoo" }
     ]
   }
 ];

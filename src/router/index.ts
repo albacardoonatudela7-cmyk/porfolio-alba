@@ -1,41 +1,41 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue' 
+import WelcomeView from '../views/WelcomeView.vue'
 
-export const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+const router = createRouter({
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: WelcomeView
     },
+   {
+  path: '/trabajos',
+  name: 'trabajos-padre',
+  component: () => import('../views/ProjectGeneral.vue'),
+  children: [
+    {
+      // Esta es la ruta anidada: /trabajos/galeria
+      path: 'galeria', 
+      name: 'trabajos',
+      component: () => import('../views/ProjectGeneral.vue')
+    }
+  ]
+},
     {
       path: '/proyecto/:id',
-      name: 'project-detail',
-      component: () => import('@/views/ProjectDetail.vue')
+      name: 'proyecto',
+      component: () => import('../views/ProjectDetail.vue')
     },
     {
       path: '/sobre-mi',
-      name: 'about',
-      component: () => import('@/views/AboutView.vue'),
-      children: [
-        { path: '', redirect: '/sobre-mi/estudios' }, 
-        {
-          path: 'estudios',
-          name: 'about-education',
-          component: () => import('@/components/AboutEducation.vue')
-        },
-        {
-          path: 'habilidades',
-          name: 'about-skills',
-          component: () => import('@/components/AboutSkills.vue')
-        }
-      ]
+      name: 'sobre-mi',
+      component: () => import('../views/AboutView.vue')
     },
     {
       path: '/contacto',
-      name: 'contact',
-      component: () => import('@/views/ContactView.vue')
+      name: 'contacto',
+      component: () => import('../views/ContactView.vue')
     }
   ]
 })

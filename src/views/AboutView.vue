@@ -1,40 +1,44 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import { educationData } from '@/data/portfolio';
+import { ref } from 'vue'
+import AboutEducation from '@/components/AboutEducation.vue'
+import AboutSkills from '@/components/AboutSkills.vue'
+
+const activeTab = ref('estudios')
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto py-10 px-6">
-    <div class="flex flex-col md:flex-row gap-12 items-start mb-10">
-      
-      <div 
-        class="w-32 h-32 md:w-40 md:h-40 shrink-0 overflow-hidden rounded-2xl shadow-md border border-gray-100 transition-all duration-500 hover:scale-125 hover:shadow-2xl cursor-pointer"
-      >
-        <img 
-          src="/img/yo.jpg" 
-          alt="Alba Cardona" 
-          class="w-full h-full object-cover"
-        />
-      </div>
-
+  <div class="max-w-4xl mx-auto py-10 px-6 animate-in fade-in duration-700">
+    <div class="flex flex-col md:flex-row gap-12 items-center mb-16 text-left">
+      <img src="/img/yo.jpg" alt="Alba Cardona" class="w-40 h-40 md:w-48 md:h-48 rounded-2xl object-cover shadow-2xl" />
       <div class="space-y-4">
-        <h2 class="text-5xl md:text-5x font-black uppercase tracking-tighter text-black">Sobre Mí</h2>
-        <div class="text-gray-700 leading-relaxed">
-          <p class="text-xl font-medium text-black mb-2">
-            Me defino como una persona <span class="text-blue-600">creativa, ambiciosa y trabajadora</span>. 
-          </p>
-          <p class="text-lg">
-           Tengo 19 años y compagino mis estudios con mi trabajo actual como editora de vídeo para influencers, aportando una visión dinámica y técnica a cada proyecto.
-          </p>
-        </div>
+        <h2 class="text-5xl font-black uppercase tracking-tighter">SOBRE MÍ</h2>
+        <p class="text-xl font-bold">Me defino como una persona <span class="text-blue-600">creativa, ambiciosa y trabajadora</span>.</p>
+        <p class="text-gray-500 font-light leading-relaxed">
+          Tengo 19 años y compagino mis estudios con mi trabajo actual como editora de vídeo para influencers, aportando una visión dinámica y técnica a cada proyecto.
+        </p>
       </div>
     </div>
 
-    <div class="flex gap-4 border-b mb-6">
-      <RouterLink to="/sobre-mi/estudios" class="pb-2 px-4 font-bold" active-class="border-b-2 border-black">Estudios</RouterLink>
-      <RouterLink to="/sobre-mi/habilidades" class="pb-2 px-4 font-bold" active-class="border-b-2 border-black">Habilidades</RouterLink>
+    <div class="flex gap-8 border-b border-gray-100 mb-10">
+      <button 
+        @click="activeTab = 'estudios'"
+        class="pb-4 text-sm font-black uppercase tracking-widest transition-all"
+        :class="activeTab === 'estudios' ? 'border-b-2 border-black text-black' : 'text-gray-300'"
+      >
+        Estudios
+      </button>
+      <button 
+        @click="activeTab = 'habilidades'"
+        class="pb-4 text-sm font-black uppercase tracking-widest transition-all"
+        :class="activeTab === 'habilidades' ? 'border-b-2 border-black text-black' : 'text-gray-300'"
+      >
+        Habilidades
+      </button>
     </div>
 
-    <RouterView />
+    <div class="min-h-200px">
+      <AboutEducation v-if="activeTab === 'estudios'" />
+      <AboutSkills v-if="activeTab === 'habilidades'" />
+    </div>
   </div>
 </template>
