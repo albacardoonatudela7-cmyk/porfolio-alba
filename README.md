@@ -1,8 +1,7 @@
-# Web de Nombre y apellido
-
+# Portafolio Profesional - Alba Cardona
 Este proyecto es una web de tipo...
 
-## Comandos principales
+Proyecto de portafolio personal realizado con Vue 3 y Tailwind CSS."
 
 - `npm install`: Instala todas las dependencias necesarias que están listadas en `package.json`.
 
