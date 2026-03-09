@@ -1,46 +1,34 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-
-import { usePortfolio } from '@/composables/usePortfolio' 
+import { projectsData } from '@/data/portfolio'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 const route = useRoute()
-const { getProjectById } = usePortfolio()
+const project = projectsData.find(p => String(p.id) === String(route.params.id))
 
 
-const projectId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
-const project = getProjectById(projectId as string)
-
+const isIntrosProject = computed(() => {
+  return project?.title.toLowerCase().includes('intros')
+})
 
 const combinedMedia = computed(() => {
   if (!project) return []
-  const images = (project.images || []).map((src: string) => ({ type: 'image', src }))
-  const videos = (project.shortVideos || []).map((src: string) => ({ type: 'video', src }))
+  const images = (project.images || []).map(src => ({ type: 'image', src }))
+  const videos = (project.shortVideos || []).map(src => ({ type: 'video', src }))
   return [...images, ...videos]
 })
 
-
 const emblaApi = ref<any>(null)
 const setApi = (api: any) => { emblaApi.value = api }
-
-const scrollPrev = () => { if (emblaApi.value) emblaApi.value.scrollPrev() }
-const scrollNext = () => { if (emblaApi.value) emblaApi.value.scrollNext() }
-
+const scrollPrev = () => emblaApi.value?.scrollPrev()
+const scrollNext = () => emblaApi.value?.scrollNext()
 
 const selectedVideo = ref<string | null>(null)
 const isModalOpen = ref(false)
-
-const openVideo = (videoUrl: string) => {
-  selectedVideo.value = videoUrl
-  isModalOpen.value = true
-}
-
-const closeModal = () => {
-  isModalOpen.value = false
-  setTimeout(() => { selectedVideo.value = null }, 300)
-}
+const openVideo = (videoUrl: string) => { selectedVideo.value = videoUrl; isModalOpen.value = true }
+const closeModal = () => { isModalOpen.value = false; setTimeout(() => { selectedVideo.value = null }, 300) }
 </script>
 
 <template>
@@ -50,50 +38,51 @@ const closeModal = () => {
       <h1 class="text-[clamp(2.5rem,7vw,5rem)] font-black uppercase leading-[0.8] tracking-tighter mb-8 italic">
         {{ project.title }}
       </h1>
-      <p class="text-[1.1rem] text-gray-800 max-w-xl mb-6 font-light">
+      <p class="text-[1.1rem] text-gray-800 max-w-xl mb-6 font-light opacity-80 italic">
         {{ project.description }}
       </p>
       <div class="flex flex-wrap gap-2">
-        <span v-for="tag in project.tags" :key="tag" 
-              class="px-4 py-1.5 border border-black rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">
-          {{ tag }}
-        </span>
+        <span v-for="tag in project.tags" :key="tag" class="tag-pill">{{ tag }}</span>
       </div>
     </header>
 
     <main class="px-6 md:px-12 py-4">
-      <div class="mx-auto relative group w-fit max-w-full mb-32">
+      
+      <div v-if="!isIntrosProject" class="mx-auto relative group w-fit max-w-full mb-32">
         <Carousel @init="setApi" :opts="{ loop: true, align: 'center' }">
           <CarouselContent>
             <CarouselItem v-for="(item, index) in combinedMedia" :key="index" class="basis-auto">
-              <div class="flex justify-center items-center p-2 h-[60vh] md:h-[75vh]">
-                <img v-if="item.type === 'image'" :src="item.src" class="h-full w-auto object-contain rounded-3xl shadow-2xl" />
-                <div v-else class="video-container shadow-2xl bg-black">
-                  <video :key="item.src" autoplay muted loop playsinline class="h-full w-auto max-full object-contain overflow-hidden">
+              <div class="carousel-media-wrapper">
+                <img v-if="item.type === 'image'" :src="item.src" class="main-img" />
+                <div v-else class="video-container">
+                  <video :key="item.src" autoplay muted loop playsinline class="main-video">
                     <source :src="item.src" type="video/mp4">
                   </video>
                 </div>
               </div>
             </CarouselItem>
           </CarouselContent>
-          <button @click="scrollPrev" class="nav-btn btn-prev" type="button"><ChevronLeft class="w-8 h-8" /></button>
-          <button @click="scrollNext" class="nav-btn btn-next" type="button"><ChevronRight class="w-8 h-8" /></button>
+          <button @click="scrollPrev" class="nav-btn btn-prev" type="button"><ChevronLeft /></button>
+          <button @click="scrollNext" class="nav-btn btn-next" type="button"><ChevronRight /></button>
         </Carousel>
       </div>
 
-      <div v-if="project.influencers" class="mt-32 max-w-1400px mx-auto space-y-12">
-        <h2 class="text-4xl font-black uppercase tracking-tighter italic border-b pb-6">Galería de Intros</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div v-for="influencer in project.influencers" :key="influencer.name" class="group cursor-pointer" @click="openVideo(influencer.videoUrl)">
-            <div class="relative aspect-3/4 overflow-hidden rounded-[40px] bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-2xl border border-gray-100">
-              <img :src="influencer.cover" :alt="influencer.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div class="bg-white p-4 rounded-full shadow-xl"><Play :size="30" class="text-black fill-black ml-1" /></div>
+      <div v-if="project.influencers && project.influencers.length > 0" class="max-w-350 mx-auto mt-10">
+        
+        <h2 v-if="!isIntrosProject" class="text-4xl font-black uppercase tracking-tighter italic border-b-2 border-black pb-6 mb-12">
+          Galería de Intros
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div v-for="influencer in project.influencers" :key="influencer.name" class="influencer-card" @click="openVideo(influencer.videoUrl)">
+            <div class="influencer-img-container">
+              <img :src="influencer.cover" :alt="influencer.name" class="influencer-img" />
+              <div class="play-overlay">
+                <div class="play-button-circle"><Play :size="24" class="play-icon" /></div>
               </div>
             </div>
             <div class="mt-6 text-center">
-              <h3 class="text-sm font-black uppercase tracking-[0.2em]">{{ influencer.name }}</h3>
-              <p class="text-[9px] font-bold text-blue-500 uppercase mt-2 tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Vídeo</p>
+              <h3 class="influencer-name">{{ influencer.name }}</h3>
             </div>
           </div>
         </div>
@@ -104,11 +93,9 @@ const closeModal = () => {
       <RouterLink to="/trabajos" class="back-link">VOLVER A TRABAJOS</RouterLink>
     </footer>
 
-    <div v-if="isModalOpen" class="fixed inset-0 bg-black/95 z-200 flex items-center justify-center p-4" @click.self="closeModal">
-      <div class="relative w-full max-w-5xl aspect-video bg-black rounded-[40px] overflow-hidden shadow-2xl border border-white/10">
-        <button @click="closeModal" class="absolute top-6 right-6 z-10 bg-white/10 hover:bg-white text-white hover:text-black p-3 rounded-full transition-all duration-300">
-          <X :size="24" />
-        </button>
+    <div v-if="isModalOpen" class="modal-overlay" @click.self="closeModal">
+      <div class="modal-content">
+        <button @click="closeModal" class="close-btn"><X :size="24" /></button>
         <iframe v-if="selectedVideo" :src="`${selectedVideo}?autoplay=1`" frameborder="0" allow="autoplay; fullscreen" class="w-full h-full"></iframe>
       </div>
     </div>
@@ -116,21 +103,26 @@ const closeModal = () => {
 </template>
 
 <style scoped>
-.video-container {
-  position: relative; height: 100%; width: auto; border-radius: 24px; overflow: hidden;
-  mask-image: radial-gradient(white, black); -webkit-mask-image: -webkit-radial-gradient(white, black);
-  isolation: isolate; display: flex; align-items: center; justify-content: center;
-}
-.nav-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: black; color: white; width: 4.5rem; height: 4.5rem; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; z-index: 50;
-  cursor: pointer; border: none; transition: all 0.4s ease;
-}
-.nav-btn:hover { background: #2563eb; transform: translateY(-50%) scale(1.1); }
-.btn-prev { left: -90px; } .btn-next { right: -90px; }
-@media (max-width: 1300px) { .btn-prev { left: 20px; } .btn-next { right: 20px; } .nav-btn { background: rgba(0,0,0,0.6); width: 3.5rem; height: 3.5rem; } }
-.back-link { display: inline-block; padding: 1.5rem 4rem; border: 2px solid black; font-weight: 900; text-transform: uppercase; font-size: 11px; letter-spacing: 0.4em; text-decoration: none; color: black; border-radius: 100px; transition: all 0.4s ease; }
+
+.influencer-img-container { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 60px; background-color: #f3f4f6; cursor: pointer; }
+.influencer-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.play-overlay { position: absolute; inset: 0; background-color: rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; }
+.influencer-card:hover .play-overlay { opacity: 1; }
+.play-button-circle { background-color: white; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+.play-icon { color: black; fill: black; margin-left: 4px; }
+.influencer-name { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; }
+.tag-pill { padding: 6px 16px; border: 1px solid black; border-radius: 9999px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.carousel-media-wrapper { display: flex; justify-content: center; align-items: center; padding: 8px; height: 60vh; }
+@media (min-width: 768px) { .carousel-media-wrapper { height: 75vh; } }
+.main-img, .video-container { height: 100%; width: auto; border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.main-video { height: 100%; width: 100%; object-fit: contain; border-radius: 40px; }
+.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: black; color: white; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 50; border: none; cursor: pointer; }
+.btn-prev { left: -80px; } .btn-next { right: -80px; }
+@media (max-width: 1200px) { .btn-prev { left: 10px; } .btn-next { right: 10px; } .nav-btn { width: 48px; height: 48px; background: rgba(0,0,0,0.7); } }
+.back-link { display: inline-block; padding: 1.2rem 3.5rem; border: 2px solid black; border-radius: 100px; font-weight: 900; text-transform: uppercase; font-size: 11px; letter-spacing: 0.3em; text-decoration: none; color: black; }
 .back-link:hover { background: black; color: white; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.modal-content { position: relative; width: 100%; max-width: 1024px; aspect-ratio: 16/9; background: black; border-radius: 50px; overflow: hidden; }
+.close-btn { position: absolute; top: 24px; right: 24px; z-index: 10; background: rgba(255,255,255,0.2); color: white; padding: 12px; border-radius: 50%; border: none; cursor: pointer; }
 :deep(.overflow-hidden) { overflow: visible !important; }
 </style>

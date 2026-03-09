@@ -3,7 +3,6 @@ import { usePortfolio } from '@/composables/usePortfolio'
 import { ExternalLink } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 
-
 const { projects } = usePortfolio()
 </script>
 
@@ -19,7 +18,7 @@ const { projects } = usePortfolio()
       <div 
         v-for="project in projects" 
         :key="project.id"
-        class="group border-none rounded-4xl overflow-hidden bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500"
+        class="group border-none rounded-4XL overflow-hidden bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500"
       >
         <div class="aspect-video bg-gray-50 overflow-hidden relative">
           <img 
@@ -47,12 +46,21 @@ const { projects } = usePortfolio()
         </div>
       </div>
     </div>
+
+    <div class="mt-10">
+      <RouterView />
+    </div>
+
   </div>
 </template>
 
 <style scoped>
-
 .group {
   isolation: isolate;
+}
+
+
+.rounded-4xl {
+  border-radius: 32px;
 }
 </style>

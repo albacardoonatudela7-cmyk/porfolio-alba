@@ -43,7 +43,7 @@ export const projectsData: Project[] = [
     title: "Lo que nos mueve",
     category: "Branding e Identidad",
     description: "Identidad visual completa para programa de intercambio cultural: logo, carteles, mupis y campaña en redes sociales incluyendo video anuncio.",
-    images: ["/img/LQNM-CartelN.JPG", "/img/LQNM-CartelR.jpg"],
+    images: ["/img/LQNM-CartelN.JPG", "/img/LQNM-CartelA.JPG", "/img/LQNM-CartelR.jpg"],
     tags: ["Illustrator", "InDesign", "After Effects", "Premiere"],
     shortVideos: [
   "/videos/lqnm1.mp4",
