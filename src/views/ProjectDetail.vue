@@ -46,7 +46,7 @@ const closeModal = () => {
 <template>
   <div v-if="project" class="min-h-screen bg-white text-black font-sans pb-20">
     
-    <header class="pt-24 pb-12 px-6 md:px-12 max-w-[1600px] mx-auto">
+    <header class="pt-24 pb-12 px-6 md:px-12 max-w-400 mx-auto">
       <h1 class="text-[clamp(2.5rem,7vw,5rem)] font-black uppercase leading-[0.8] tracking-tighter mb-8 italic">
         {{ project.title }}
       </h1>
@@ -67,7 +67,7 @@ const closeModal = () => {
           <CarouselContent>
             <CarouselItem v-for="(item, index) in combinedMedia" :key="index" class="basis-auto">
               <div class="flex justify-center items-center p-2 h-[60vh] md:h-[75vh]">
-                <img v-if="item.type === 'image'" :src="item.src" class="h-full w-auto object-contain rounded-[24px] shadow-2xl" />
+                <img v-if="item.type === 'image'" :src="item.src" class="h-full w-auto object-contain rounded-3xl shadow-2xl" />
                 <div v-else class="video-container shadow-2xl bg-black">
                   <video :key="item.src" autoplay muted loop playsinline class="h-full w-auto max-full object-contain overflow-hidden">
                     <source :src="item.src" type="video/mp4">
@@ -81,11 +81,11 @@ const closeModal = () => {
         </Carousel>
       </div>
 
-      <div v-if="project.influencers" class="mt-32 max-w-[1400px] mx-auto space-y-12">
+      <div v-if="project.influencers" class="mt-32 max-w-1400px mx-auto space-y-12">
         <h2 class="text-4xl font-black uppercase tracking-tighter italic border-b pb-6">Galería de Intros</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div v-for="influencer in project.influencers" :key="influencer.name" class="group cursor-pointer" @click="openVideo(influencer.videoUrl)">
-            <div class="relative aspect-[3/4] overflow-hidden rounded-[40px] bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-2xl border border-gray-100">
+            <div class="relative aspect-3/4 overflow-hidden rounded-[40px] bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-2xl border border-gray-100">
               <img :src="influencer.cover" :alt="influencer.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div class="bg-white p-4 rounded-full shadow-xl"><Play :size="30" class="text-black fill-black ml-1" /></div>
@@ -104,7 +104,7 @@ const closeModal = () => {
       <RouterLink to="/trabajos" class="back-link">VOLVER A TRABAJOS</RouterLink>
     </footer>
 
-    <div v-if="isModalOpen" class="fixed inset-0 bg-black/95 z-[200] flex items-center justify-center p-4" @click.self="closeModal">
+    <div v-if="isModalOpen" class="fixed inset-0 bg-black/95 z-200 flex items-center justify-center p-4" @click.self="closeModal">
       <div class="relative w-full max-w-5xl aspect-video bg-black rounded-[40px] overflow-hidden shadow-2xl border border-white/10">
         <button @click="closeModal" class="absolute top-6 right-6 z-10 bg-white/10 hover:bg-white text-white hover:text-black p-3 rounded-full transition-all duration-300">
           <X :size="24" />

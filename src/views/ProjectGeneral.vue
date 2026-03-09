@@ -8,7 +8,7 @@ const { projects } = usePortfolio()
 </script>
 
 <template>
-  <div class="py-10 max-w-[1400px] mx-auto animate-in fade-in duration-1000">
+  <div class="py-10 max-w-350 mx-auto animate-in fade-in duration-1000">
     <header class="mb-12 px-4">
       <h2 class="text-5xl font-black uppercase tracking-tighter italic">Mis Trabajos</h2>
       <p class="text-gray-500 mt-2 font-light tracking-wide">Diseño, branding y edición creativa para creadores de contenido.</p>
@@ -19,7 +19,7 @@ const { projects } = usePortfolio()
       <div 
         v-for="project in projects" 
         :key="project.id"
-        class="group border-none rounded-[32px] overflow-hidden bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500"
+        class="group border-none rounded-4xl overflow-hidden bg-white hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500"
       >
         <div class="aspect-video bg-gray-50 overflow-hidden relative">
           <img 
