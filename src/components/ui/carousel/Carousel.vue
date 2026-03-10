@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, watch, ref } from 'vue'
+import { provide, watch,ref} from 'vue'
 import useEmblaCarousel from 'embla-carousel-vue'
 
 const props = defineProps<{
